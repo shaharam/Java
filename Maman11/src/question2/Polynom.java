@@ -1,5 +1,6 @@
 package question2;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Polynom {
@@ -37,9 +38,7 @@ public class Polynom {
 		int size = this._polynom.size() + other._polynom.size();
 		double[] coefficients = new double[size];
 		int[] powers = new int[size];
-		int i = 0;
-		int j = 0;
-		int k = 0;
+		int i = 0, j = 0, k = 0;
 		while (i < this._polynom.size() && j < other._polynom.size()) {
 			if (this._polynom.get(i).get_power() > other._polynom.get(j).get_power()) {
 				coefficients[k] = this._polynom.get(i).get_coefficient();
@@ -55,25 +54,34 @@ public class Polynom {
 			}
 			else {
 				coefficients[k] = this._polynom.get(i).get_coefficient() + other._polynom.get(j).get_coefficient();
-				powers[k] = other._polynom.get(i).get_power();
+				powers[k] = other._polynom.get(j).get_power();
 				i++;
 				j++;
 				k++;
 			}
 		}
-		while (this._polynom.get(i) != null) {
+		while (i < this._polynom.size()) {
 			coefficients[k] = this._polynom.get(i).get_coefficient();
 			powers[k] = this._polynom.get(i).get_power();
 			i++;
 			k++;
 		}
-		while (this._polynom.get(j) != null) {
+		while (j < other._polynom.size()) {
 			coefficients[k] = this._polynom.get(j).get_coefficient();
 			powers[k] = this._polynom.get(j).get_power();
 			j++;
 			k++;
 		}
-		Polynom plus = new Polynom(coefficients, powers);
+		
+		Polynom plus;
+		if (k >= size) {
+			plus = new Polynom(coefficients, powers);
+		}
+		else {
+			double[] coefficientsCopy = Arrays.copyOf(coefficients, k);
+			int[] powersCopy = Arrays.copyOf(powers, k);
+			plus = new Polynom(coefficientsCopy, powersCopy);
+		}
 		return plus;
 	}
 	
