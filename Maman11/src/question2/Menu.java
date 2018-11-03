@@ -4,14 +4,12 @@ import java.util.Scanner;
 public class Menu {
 
 	public static void main(String[] args) {
-		Scanner scan = new Scanner (System.in);
-		System.out.println("Enter the number of monomials in the polynom: ");
-		int number = scan.nextInt();
-		double[] coefficients = Monomial.initializeArrays(number, "coefficient");
-		double[] powers = Monomial.initializeArrays(number, "power");
-		Polynom poly = new Polynom(coefficients, powers);		
+		System.out.println("Please enter two Polynoms...");
+		Polynom pol1 = Polynom.polynomCreation("1st");
+		Polynom pol2 = Polynom.polynomCreation("2nd");
 				
 		int choice;
+		Scanner scan = new Scanner (System.in);
 		do{
 			System.out.println("\nEnter Your Menu Choice: ");
 			System.out.println("1. Plus");
@@ -24,6 +22,8 @@ public class Menu {
 			choice = scan.nextInt();
 			switch(choice){
 			case 1:
+				Polynom result = pol1.plus(pol2);
+				result.toString();
 				break;
 			
 			case 2:
@@ -33,7 +33,7 @@ public class Menu {
 				break;
 				
 			case 4:
-				poly.toString();
+				pol1.toString();
 				break;
 			
 			case 5:

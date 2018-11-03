@@ -3,20 +3,30 @@ import java.util.Scanner;
 
 public class Monomial {
 	private double _coefficient;
-	private double _power;
+	private int _power;
 	
-	public Monomial(double _coefficient, double _power) {
+	public Monomial(double _coefficient, int _power) {
 		super();
 		this._coefficient = _coefficient;
 		this._power = _power;
 	}
-
-	public static double[] initializeArrays(int num, String str) {
+	
+	public static double[] coefficientArray(int num) {
 		double[] array = new double[num];
 		Scanner scan = new Scanner (System.in);
 		for (int i=0; i<num; i++) {
-			System.out.printf("Enter the %s of monomial number %d: ", str, i+1);
+			System.out.printf("Enter the coefficient of monomial number %d: ", i+1);
 			array[i] = scan.nextDouble();
+		}
+		return array;
+	}
+	
+	public static int[] powerArray(int num) {
+		int[] array = new int[num];
+		Scanner scan = new Scanner (System.in);
+		for (int i=0; i<num; i++) {
+			System.out.printf("Enter the power of monomial number %d: ", i+1);
+			array[i] = scan.nextInt();
 		}
 		return array;
 	}
@@ -31,7 +41,7 @@ public class Monomial {
 	/**
 	 * @return the _power
 	 */
-	public double get_power() {
+	public int get_power() {
 		return _power;
 	}
 }
