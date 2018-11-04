@@ -85,11 +85,6 @@ public class Polynom {
 		return plus;
 	}
 	
-	private int greaterPolynom(Polynom other) {
-		if (this._polynom.size() > other._polynom.size()) return this._polynom.size();
-		return other._polynom.size();
-	}
-	
 	@Override
 	public String toString() {
 		System.out.println("-------------------------------");
