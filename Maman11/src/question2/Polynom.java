@@ -136,6 +136,25 @@ public class Polynom {
 		return minus;
 	}
 
+	public void gzira() {
+		double[] coefficients = new double[_polynom.size()];
+		int[] powers = new int[_polynom.size()];
+		int k = 0;
+		for (int i=0; i<_polynom.size(); i++) {
+			if (_polynom.get(i).get_power() > 0) {
+				coefficients[i] = _polynom.get(i).get_coefficient() * _polynom.get(i).get_power();
+				powers[i] = _polynom.get(i).get_power() - 1;
+				k++;
+			}
+		}
+		Polynom gazur;
+		if (k < _polynom.size() && coefficients[k] == 0) {
+			double[] coefficientsCopy = Arrays.copyOf(coefficients, k);
+			int[] powersCopy = Arrays.copyOf(powers, k);
+			gazur = new Polynom(coefficientsCopy, powersCopy);
+		}
+		gazur.toString();
+	}
 	
 	@Override
 	public String toString() {

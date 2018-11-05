@@ -22,11 +22,13 @@ public class Menu {
 			choice = scan.nextInt();
 			switch(choice){
 			case 1:
-				Polynom result = pol1.plus(pol2);
-				result.toString();
+				Polynom plusResult = pol1.plus(pol2);
+				plusResult.toString();
 				break;
 			
 			case 2:
+				Polynom minusResult = pol1.minus(pol2);
+				minusResult.toString();
 				break;
 				
 			case 3:
