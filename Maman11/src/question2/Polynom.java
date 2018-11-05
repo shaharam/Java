@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Polynom {
+public class Polynom implements Comparable<Polynom>{
 	private ArrayList<Monomial> _polynom = new ArrayList<Monomial>();
 
 	public Polynom(double[] coeff, int[] power) {
@@ -153,7 +153,32 @@ public class Polynom {
 			int[] powersCopy = Arrays.copyOf(powers, k);
 			gazur = new Polynom(coefficientsCopy, powersCopy);
 		}
+		else {
+			gazur = new Polynom(coefficients, powers);
+		}
 		gazur.toString();
+	}
+	
+	@Override
+	public int compareTo(Polynom other) {
+		int i=0;
+		while (i < this._polynom.size() && i < other._polynom.size()) {
+			if (this._polynom.get(i).get_power() > other._polynom.get(i).get_power())
+				return 1;
+			else if (this._polynom.get(i).get_power() < other._polynom.get(i).get_power())
+				return -1;
+			else {
+				if (this._polynom.get(i).get_coefficient() > other._polynom.get(i).get_coefficient())
+					return 1;
+				else if (this._polynom.get(i).get_coefficient() < other._polynom.get(i).get_coefficient())
+					return -1;
+				else {
+					i++;
+					continue;
+				}
+			}
+		}
+		return 0;
 	}
 	
 	@Override

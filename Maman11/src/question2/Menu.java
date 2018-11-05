@@ -32,6 +32,7 @@ public class Menu {
 				break;
 				
 			case 3:
+				pol1.gzira();
 				break;
 				
 			case 4:
@@ -39,10 +40,12 @@ public class Menu {
 				break;
 			
 			case 5:
+				int result = pol1.compareTo(pol2);
+				System.out.println("Result of compare: " + result);
 				break;
 				
 			case 6:
-				System.out.println("CashDesk is close!");
+				System.out.println("Exiting program...");
 				scan.close();
 				System.exit(0);
 				
