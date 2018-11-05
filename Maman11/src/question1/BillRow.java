@@ -11,14 +11,23 @@ public class BillRow {
 		this._sum = prdct.get_price() * quantity;
 	}
 
+	/**
+	 * @return quantity of product in the bill
+	 */
 	public int get_quantity() {
 		return _quantity;
 	}
 
+	/**
+	 * @return sum of the quantity * price
+	 */
 	public double get_sum() {
 		return _sum;
 	}
 
+	/**
+	 * @return the product object
+	 */
 	public Product get_prdct() {
 		return _prdct;
 	}

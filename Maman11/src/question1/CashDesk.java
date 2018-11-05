@@ -6,7 +6,7 @@ public class CashDesk {
 	private double _customerAmount;
 	private ArrayList<BillRow> _totalBill = new ArrayList<BillRow>();
 	
-	public static CashDesk initializeCashDesk(double amount) {
+	public static CashDesk initializeCashDesk(double amount) { //method that call one of the constructors 
 		if (amount == 0) {
 			return new CashDesk();
 		}
@@ -52,7 +52,7 @@ public class CashDesk {
 		_cashDeskAmount = _cashDeskAmount + _customerAmount;
 		System.out.println("The change for customer is: " + (money-_customerAmount));
 		_customerAmount = 0;
-		_totalBill.clear();
+		_totalBill.clear(); //Clearing the billrow array list and ready for new customer
 	}
 
 	/**
