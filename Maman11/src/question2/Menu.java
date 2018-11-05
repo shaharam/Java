@@ -33,10 +33,12 @@ public class Menu {
 				
 			case 3:
 				pol1.gzira();
+				pol2.gzira();
 				break;
 				
 			case 4:
 				pol1.toString();
+				pol2.toString();
 				break;
 			
 			case 5:

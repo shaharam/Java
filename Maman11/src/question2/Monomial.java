@@ -18,7 +18,6 @@ public class Monomial {
 			System.out.printf("Enter the coefficient of monomial number %d: ", i+1);
 			array[i] = scan.nextDouble();
 		}
-		scan.close();
 		return array;
 	}
 	
@@ -29,7 +28,6 @@ public class Monomial {
 			System.out.printf("Enter the power of monomial number %d: ", i+1);
 			array[i] = scan.nextInt();
 		}
-		scan.close();
 		return array;
 	}
 

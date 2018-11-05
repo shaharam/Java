@@ -31,7 +31,6 @@ public class Polynom implements Comparable<Polynom>{
 		int[] powers = Monomial.powerArray(number);
 		Polynom pol = new Polynom(coefficients, powers);
 		System.out.println("----------------------------------------------");
-		scan.close();
 		return pol;
 	}
 	
