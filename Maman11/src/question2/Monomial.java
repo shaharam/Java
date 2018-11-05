@@ -1,6 +1,11 @@
 package question2;
 import java.util.Scanner;
 
+/**
+ * @author Shahar Amram
+ * This class represents monomial (one node) of the polynom 
+ *
+ */
 public class Monomial {
 	private double _coefficient;
 	private int _power;
@@ -11,6 +16,10 @@ public class Monomial {
 		this._power = _power;
 	}
 	
+	/**
+	 * @param num - number of monomials
+	 * @return double array of the coefficients of the polynom
+	 */
 	public static double[] coefficientArray(int num) {
 		double[] array = new double[num];
 		Scanner scan = new Scanner (System.in);
@@ -21,6 +30,10 @@ public class Monomial {
 		return array;
 	}
 	
+	/**
+	 * @param num - number of monomials
+	 * @return int array of the powers of the polynom
+	 */
 	public static int[] powerArray(int num) {
 		int[] array = new int[num];
 		Scanner scan = new Scanner (System.in);

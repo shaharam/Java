@@ -10,13 +10,13 @@ public class Polynom implements Comparable<Polynom>{
 		super();
 		for (int i=0; i<coeff.length; i++) {
 			Monomial temp = new Monomial(coeff[i], power[i]);
-			insertToArray(temp);
+			insertToArray(temp); //Insert the monomials sorted into the arraylist
 		}
 	}
 	
 	private void insertToArray(Monomial temp) {
 		for (int i=0; i<_polynom.size(); i++) {
-			if (temp.get_power() < _polynom.get(i).get_power()) continue;
+			if (temp.get_power() < _polynom.get(i).get_power()) continue; //adding the monomial to the right place in order to be sorted
 			_polynom.add(i, temp);
 			return;
 		}
@@ -29,16 +29,16 @@ public class Polynom implements Comparable<Polynom>{
 		int number = scan.nextInt();
 		double[] coefficients = Monomial.coefficientArray(number);
 		int[] powers = Monomial.powerArray(number);
-		Polynom pol = new Polynom(coefficients, powers);
+		Polynom pol = new Polynom(coefficients, powers); //call to constructor with two arrays
 		System.out.println("----------------------------------------------");
 		return pol;
 	}
 	
 	public Polynom plus(Polynom other) {
-		int size = this._polynom.size() + other._polynom.size();
+		int size = this._polynom.size() + other._polynom.size(); //maximum size of calculated polynom
 		double[] coefficients = new double[size];
 		int[] powers = new int[size];
-		int i = 0, j = 0, k = 0;
+		int i = 0, j = 0, k = 0; //i-1st polynom, j-2nd polynom, k-counter of monomials in the calculated polynom
 		while (i < this._polynom.size() && j < other._polynom.size()) {
 			if (this._polynom.get(i).get_power() > other._polynom.get(j).get_power()) {
 				coefficients[k] = this._polynom.get(i).get_coefficient();
@@ -60,13 +60,13 @@ public class Polynom implements Comparable<Polynom>{
 				k++;
 			}
 		}
-		while (i < this._polynom.size()) {
+		while (i < this._polynom.size()) { //if we didn't go over the whole 1st polynom
 			coefficients[k] = this._polynom.get(i).get_coefficient();
 			powers[k] = this._polynom.get(i).get_power();
 			i++;
 			k++;
 		}
-		while (j < other._polynom.size()) {
+		while (j < other._polynom.size()) { //if we didn't go over the whole 2nd polynom
 			coefficients[k] = this._polynom.get(j).get_coefficient();
 			powers[k] = this._polynom.get(j).get_power();
 			j++;
@@ -74,10 +74,10 @@ public class Polynom implements Comparable<Polynom>{
 		}
 		
 		Polynom plus;
-		if (k >= size) {
+		if (k >= size) { //if the arrays okay and there are no null cells
 			plus = new Polynom(coefficients, powers);
 		}
-		else {
+		else { //if there are null ( '0' ) values in the arrays we copy the relevant data to new arrays
 			double[] coefficientsCopy = Arrays.copyOf(coefficients, k);
 			int[] powersCopy = Arrays.copyOf(powers, k);
 			plus = new Polynom(coefficientsCopy, powersCopy);
@@ -160,7 +160,7 @@ public class Polynom implements Comparable<Polynom>{
 	}
 	
 	@Override
-	public int compareTo(Polynom other) {
+	public int compareTo(Polynom other) { //check the powers first and then the coefficients
 		int i=0;
 		while (i < this._polynom.size() && i < other._polynom.size()) {
 			if (this._polynom.get(i).get_power() > other._polynom.get(i).get_power())
