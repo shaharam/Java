@@ -85,6 +85,58 @@ public class Polynom {
 		return plus;
 	}
 	
+	public Polynom minus(Polynom other) {
+		int size = this._polynom.size() + other._polynom.size();
+		double[] coefficients = new double[size];
+		int[] powers = new int[size];
+		int i = 0, j = 0, k = 0;
+		while (i < this._polynom.size() && j < other._polynom.size()) {
+			if (this._polynom.get(i).get_power() > other._polynom.get(j).get_power()) {
+				coefficients[k] = this._polynom.get(i).get_coefficient();
+				powers[k] = this._polynom.get(i).get_power();
+				i++;
+				k++;
+			}
+			else if (this._polynom.get(i).get_power() < other._polynom.get(j).get_power()) {
+				coefficients[k] = other._polynom.get(j).get_coefficient();
+				powers[k] = other._polynom.get(j).get_power();
+				j++;
+				k++;
+			}
+			else {
+				coefficients[k] = this._polynom.get(i).get_coefficient() - other._polynom.get(j).get_coefficient();
+				powers[k] = other._polynom.get(j).get_power();
+				i++;
+				j++;
+				k++;
+			}
+		}
+		while (i < this._polynom.size()) {
+			coefficients[k] = this._polynom.get(i).get_coefficient();
+			powers[k] = this._polynom.get(i).get_power();
+			i++;
+			k++;
+		}
+		while (j < other._polynom.size()) {
+			coefficients[k] = this._polynom.get(j).get_coefficient();
+			powers[k] = this._polynom.get(j).get_power();
+			j++;
+			k++;
+		}
+		
+		Polynom minus;
+		if (k >= size) {
+			minus = new Polynom(coefficients, powers);
+		}
+		else {
+			double[] coefficientsCopy = Arrays.copyOf(coefficients, k);
+			int[] powersCopy = Arrays.copyOf(powers, k);
+			minus = new Polynom(coefficientsCopy, powersCopy);
+		}
+		return minus;
+	}
+
+	
 	@Override
 	public String toString() {
 		System.out.println("-------------------------------");
