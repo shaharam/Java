@@ -1,4 +1,4 @@
-package question2;
+package Maman11.question2;
 import java.util.Scanner;
 
 public class Menu {

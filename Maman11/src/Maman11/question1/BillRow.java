@@ -1,4 +1,4 @@
-package question1;
+package Maman11.question1;
 public class BillRow {
 	private Product _prdct;
 	private int _quantity;

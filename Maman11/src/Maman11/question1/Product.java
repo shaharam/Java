@@ -1,4 +1,4 @@
-package question1;
+package Maman11.question1;
 public class Product {
 	private String _name;
 	private double _price;
