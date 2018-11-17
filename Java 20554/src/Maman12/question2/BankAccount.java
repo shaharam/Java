@@ -27,10 +27,26 @@ public abstract class BankAccount {
 		}
 		
 		catch (IllegalBalance e) {
-			System.out.println("Insufficient funds");
+			System.out.println("Insufficient funds in the bank");
 		}
 		
 		balance = balance - money;
+	}
+	
+	public abstract void monthlyManage();
+	
+	@Override
+	public String toString() {
+		return "BankAccount [accountId=" + accountId + ", accountName=" + accountName + ", ownerId=" + ownerId
+				+ ", balance=" + balance + "]";
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof BankAccount))
+			return false;
+		BankAccount temp = (BankAccount)other;
+		return this.accountId == temp.accountId && this.accountName == temp.accountName && this.ownerId == temp.ownerId && this.balance == temp.balance;
 	}
 
 	/**
@@ -83,4 +99,3 @@ public abstract class BankAccount {
 	}
 	
 }
-
