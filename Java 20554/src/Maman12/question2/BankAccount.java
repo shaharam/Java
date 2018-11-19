@@ -1,10 +1,10 @@
 package Maman12.question2;
 
 public abstract class BankAccount {
-	private String accountId;
-	private String accountName;
-	private String ownerId;
-	private double balance;
+	protected String accountId;
+	protected String accountName;
+	protected String ownerId;
+	protected double balance;
 	
 	public BankAccount(String accountId, String accountName, String ownerId, double balance) {
 		super();
@@ -15,22 +15,20 @@ public abstract class BankAccount {
 	}
 	
 	public void deposit(double money) {
-		balance += money;
+		this.balance += money;
 	}
 	
 	public void withdraw(double money) {
 		try {
-			if (balance < money)
+			if (this.balance < money)
 				throw new IllegalBalance();
 			else
-				balance -= money;
+				this.balance -= money;
 		}
 		
 		catch (IllegalBalance e) {
 			System.out.println("Insufficient funds in the bank");
 		}
-		
-		balance = balance - money;
 	}
 	
 	public abstract void monthlyManage();
