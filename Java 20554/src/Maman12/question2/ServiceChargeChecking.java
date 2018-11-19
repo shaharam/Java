@@ -2,8 +2,8 @@ package Maman12.question2;
 
 public class ServiceChargeChecking extends CheckingAccount {
 	
-	private final int FIXED_FEE = 10;
-	private int fee;
+	private final double FIXED_FEE = 10;
+	private double fee;
 	
 	public ServiceChargeChecking(String accountId, String accountName, String ownerId, double balance) {
 		super(accountId, accountName, ownerId, balance);
@@ -17,7 +17,7 @@ public class ServiceChargeChecking extends CheckingAccount {
 		this.fee = fee;
 	}
 
-	public int getFee() {
+	public double getFee() {
 		return fee;
 	}
 
