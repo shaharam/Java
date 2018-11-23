@@ -15,7 +15,9 @@ public abstract class BankAccount {
 	}
 	
 	public void deposit(double money) {
-		this.balance += money;
+		if (money <= 0)
+			throw new IllegalArgumentException("You Can not deposit this amount of money, please deposit more than 0");
+		else this.balance += money;
 	}
 	
 	public void withdraw(double money) {
