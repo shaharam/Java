@@ -21,7 +21,12 @@ public class ServiceChargeChecking extends CheckingAccount {
 	}
 
 	@Override
+	public String toString() {
+		return "ServiceChargeChecking: " + super.toString() + ", Fee=" + fee + "$";
+	}
+
+	@Override
 	public void monthlyManage() {
-		this.withdraw(this.fee);
+		this.withdraw(this.fee);	//Using withdraw method
 	}
 }

@@ -15,9 +15,18 @@ public abstract class BankAccount {
 	}
 	
 	public void deposit(double money) {
-		if (money <= 0)
-			throw new IllegalArgumentException("You Can not deposit this amount of money, please deposit more than 0");
-		else this.balance += money;
+		try {
+			if (money <= 0)
+				throw new IllegalArgumentException();
+			else {
+				this.balance += money;
+				System.out.println("Deposit of " + money + "$ " + "added to the balance");
+			}
+		}
+		
+		catch (IllegalArgumentException e) {
+			System.out.println("You Can not deposit this amount of money, please deposit more than 0");
+		}
 	}
 	
 	public void withdraw(double money) {
@@ -26,10 +35,11 @@ public abstract class BankAccount {
 				throw new IllegalBalance();
 			else
 				this.balance -= money;
+				System.out.println("Withdraw of " + money + "$ " + "reduced from the balance");
 		}
 		
 		catch (IllegalBalance e) {
-			System.out.println("Insufficient funds in the bank");
+			System.out.println("Withdraw failed - Insufficient funds in the bank");
 		}
 	}
 	
@@ -37,8 +47,8 @@ public abstract class BankAccount {
 	
 	@Override
 	public String toString() {
-		return "BankAccount [accountId=" + accountId + ", accountName=" + accountName + ", ownerId=" + ownerId
-				+ ", balance=" + balance + "]";
+		return "AccountId=" + accountId + ", AccountName=" + accountName + ", OwnerId=" + ownerId
+				+ ", Balance=" + balance + "$";
 	}
 	
 	@Override

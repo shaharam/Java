@@ -7,6 +7,6 @@ public abstract class CheckingAccount extends BankAccount {
 	}
 	
 	public void writeCheck(double check) {
-		this.withdraw(check);
+		this.withdraw(check);	//Using withdraw method
 	}
 }
