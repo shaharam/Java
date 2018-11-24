@@ -39,5 +39,13 @@ public class HighInterestSavings extends SavingsAccount {
 		String[] str = super.toString().split(":"); //Removed the name of superclass name
 		return "HighInterestSavings:" + str[1] + ", Minimum_balance=" + min_balance + "$";
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof HighInterestSavings))
+			return false;
+		HighInterestSavings temp = (HighInterestSavings)other;
+		return super.equals(other) && this.min_balance == temp.min_balance;
+	}
 
 }

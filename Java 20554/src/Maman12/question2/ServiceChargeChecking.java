@@ -30,4 +30,13 @@ public class ServiceChargeChecking extends CheckingAccount {
 		System.out.print("Monthly manage: ");
 		this.withdraw(this.fee);	//Using withdraw method
 	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof ServiceChargeChecking))
+			return false;
+		ServiceChargeChecking temp = (ServiceChargeChecking)other;
+		return super.equals(other) && this.fee == temp.fee;
+	}
+
 }

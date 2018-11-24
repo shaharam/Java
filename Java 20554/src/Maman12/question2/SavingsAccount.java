@@ -34,4 +34,12 @@ public class SavingsAccount extends BankAccount {
 		System.out.print("Monthly manage: ");
 		this.deposit(this.interestCalculation()); //Using deposit method
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof SavingsAccount))
+			return false;
+		SavingsAccount temp = (SavingsAccount)other;
+		return super.equals(other) && this.interest == temp.interest;
+	}
 }

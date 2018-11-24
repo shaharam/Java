@@ -36,5 +36,13 @@ public class InterestChecking extends NoServiceChargeChecking {
 		System.out.print("Monthly manage: ");
 		this.deposit(this.interestCalculation()); //Using deposit method
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof InterestChecking))
+			return false;
+		InterestChecking temp = (InterestChecking)other;
+		return super.equals(other) && this.interest == temp.interest;
+	}
 
 }

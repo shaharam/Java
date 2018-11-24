@@ -44,4 +44,12 @@ public class NoServiceChargeChecking extends CheckingAccount {
 	public void monthlyManage() {	//No need to implement but must to override as it's an abstract method
 		System.out.println("No monthly manage for this account type");
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (!(other instanceof NoServiceChargeChecking))
+			return false;
+		NoServiceChargeChecking temp = (NoServiceChargeChecking)other;
+		return super.equals(other) && this.min_balance == temp.min_balance;
+	}
 }
