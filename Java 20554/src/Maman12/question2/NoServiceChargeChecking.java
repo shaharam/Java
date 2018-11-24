@@ -18,19 +18,20 @@ public class NoServiceChargeChecking extends CheckingAccount {
 
 	public void setMin_balance(double min_balance) {
 		this.min_balance = min_balance;
+		System.out.println("Minimum balance is set to " + min_balance);
 	}
 	
 	@Override
 	public void withdraw(double money) {
 		try {
-			if (this.balance < this.min_balance)
+			if ((this.balance - money) < this.min_balance)
 				throw new IllegalBalance();
 			else
 				super.withdraw(money);
 		}
 		
 		catch (IllegalBalance e) {
-			System.out.println("Withdraw failed - Balance is lower than minimum balance");
+			System.out.println("Withdraw of " + money + " failed - Balance will be lower than minimum balance");
 		}
 	}
 
@@ -40,6 +41,7 @@ public class NoServiceChargeChecking extends CheckingAccount {
 	}
 
 	@Override
-	public void monthlyManage() {}	//No need to implement but must to override as it's an abstract method
-
+	public void monthlyManage() {	//No need to implement but must to override as it's an abstract method
+		System.out.println("No monthly manage for this account type");
+	}
 }

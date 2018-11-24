@@ -27,6 +27,7 @@ public class ServiceChargeChecking extends CheckingAccount {
 
 	@Override
 	public void monthlyManage() {
+		System.out.print("Monthly manage: ");
 		this.withdraw(this.fee);	//Using withdraw method
 	}
 }

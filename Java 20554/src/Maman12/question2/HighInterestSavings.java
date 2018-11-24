@@ -23,14 +23,14 @@ public class HighInterestSavings extends SavingsAccount {
 	@Override
 	public void withdraw(double money) {
 		try {
-			if (this.balance < this.min_balance)
+			if ((this.balance - money) < this.min_balance)
 				throw new IllegalBalance();
 			else
 				super.withdraw(money);
 		}
 		
 		catch (IllegalBalance e) {
-			System.out.println("Withdraw failed - Balance is lower than minimum balance");
+			System.out.println("Withdraw of " + money + " failed - Balance will be lower than minimum balance");
 		}
 	}
 

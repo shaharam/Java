@@ -18,6 +18,7 @@ public class InterestChecking extends NoServiceChargeChecking {
 
 	public void setInterest(double interest) {
 		this.interest = interest;
+		System.out.println("Intereset is updated to " + interest);
 	}
 	
 	private double interestCalculation() {
@@ -32,6 +33,7 @@ public class InterestChecking extends NoServiceChargeChecking {
 
 	@Override
 	public void monthlyManage() {
+		System.out.print("Monthly manage: ");
 		this.deposit(this.interestCalculation()); //Using deposit method
 	}
 

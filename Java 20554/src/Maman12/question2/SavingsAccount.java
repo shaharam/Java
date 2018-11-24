@@ -31,6 +31,7 @@ public class SavingsAccount extends BankAccount {
 
 	@Override
 	public void monthlyManage() {
+		System.out.print("Monthly manage: ");
 		this.deposit(this.interestCalculation()); //Using deposit method
 	}
 }
