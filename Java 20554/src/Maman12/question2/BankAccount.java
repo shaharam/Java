@@ -39,7 +39,7 @@ public abstract class BankAccount {
 		}
 		
 		catch (IllegalBalance e) {
-			System.out.println("Withdraw failed - Insufficient funds in the bank");
+			System.out.println("Withdraw of " + money + " failed - Insufficient funds in the bank");
 		}
 	}
 	
