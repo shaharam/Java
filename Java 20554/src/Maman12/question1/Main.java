@@ -10,7 +10,7 @@ public class Main {
 		
 	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    frame.setSize(400, 400);
-	    frame.setLocation(1000, 100);
+	    frame.setLocation(950, 100);
 	    frame.add(panel);
 	    frame.setVisible(true);
 	    
