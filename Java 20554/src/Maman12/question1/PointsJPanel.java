@@ -14,7 +14,7 @@ public class PointsJPanel extends JPanel {
 		super.paintComponent(g);
 		g.setColor(Color.BLUE);
 		for (int i = 0; i < points_arr.size(); i++) {
-			if (i == 0)
+			if (i == 0)	//Drawing the first point
 				g.fillOval(points_arr.get(i).x, points_arr.get(i).y, 10, 10);
 			else {
 				g.fillOval(points_arr.get(i).x, points_arr.get(i).y, 10, 10);
