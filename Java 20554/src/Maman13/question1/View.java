@@ -19,11 +19,34 @@ public class View extends JFrame implements ActionListener {
 		super(title);
 		model = m;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(1000, 50, 530, 530);
+		setBounds(1000, 50, 550, 550);
 		setResizable(false);
 		main_panel = new JPanel();
 		
-		//Create matrix of panels
+		//Adding panels to main JPanel
+		colorIndication();
+		tableDraw();
+		buttonsDraw();
+		clearDraw();
+		
+		add(main_panel);
+		setVisible(true);
+	}
+
+	private void colorIndication() {	//Add players color indication
+		JLabel player_1 = new JLabel("Player 1 =");
+		JLabel red_color = new JLabel("RED");
+		red_color.setForeground(Color.RED);
+		JLabel player_2 = new JLabel("Player 2 =");
+		JLabel blue_color = new JLabel("BLUE");
+		blue_color.setForeground(Color.BLUE);
+		main_panel.add(player_1);
+		main_panel.add(red_color);
+		main_panel.add(player_2);
+		main_panel.add(blue_color);
+	}
+	
+	private void tableDraw() {	//Create matrix of panels
 		table = new JPanel();
 		table.setPreferredSize(new Dimension(500, 400));
 		table.setLayout(new GridLayout(rows, cols));
@@ -35,8 +58,10 @@ public class View extends JFrame implements ActionListener {
 			}
 		}
 		main_panel.add(table);
-		
-		//Create panel of buttons
+	}
+
+
+	private void buttonsDraw() {	//Create panel of buttons
 		button_panels = new JPanel();
 		button_panels.setLayout(new GridLayout(1, cols));
 		button_panels.setPreferredSize(new Dimension(500, 50));
@@ -48,15 +73,13 @@ public class View extends JFrame implements ActionListener {
 			button_panels.add(buttons[i]);
 		}
 		main_panel.add(button_panels);
-
-		//Create clear button
+	}
+	
+	private void clearDraw() {	//Create clear button
 		clear = new JButton("Clear");
 		clear.setActionCommand("clear");
 		clear.addActionListener(this);
 		main_panel.add(clear);
-		
-		add(main_panel);
-		setVisible(true);
 	}
 	
 	private void resetGame() {
@@ -70,14 +93,28 @@ public class View extends JFrame implements ActionListener {
 	}
 	
 	private void checkDraw() {
-		int res;
 		if (Model.cells_left == 0) {
-			res = JOptionPane.showConfirmDialog(null, "Game status: DRAW\nNew game?", "DRAW", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			int res = JOptionPane.showConfirmDialog(null, "Game status: DRAW\nNew game?", "DRAW", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			if (res == 0)
 				resetGame();
 			else
 				System.exit(0);
 		}
+	}
+	
+	private void winner() {
+		int res = JOptionPane.showConfirmDialog(null, "Game status: Player " + Model.player + " WON!" + "\nNew game?", "WIN", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		if (res == 0)
+			resetGame();
+		else
+			System.exit(0);
+		}
+	
+	private void changePlayer() {
+		if (Model.player == 1)
+    		Model.player = 2;
+    	else
+    		Model.player = 1;
 	}
 
 	@Override
@@ -97,6 +134,9 @@ public class View extends JFrame implements ActionListener {
 				cells[row][col].add(d);
 				setContentPane(main_panel);
 				checkDraw();
+				if (model.checkWin(row, col))
+					winner();
+				changePlayer();
 			}
 		}
 	}	
