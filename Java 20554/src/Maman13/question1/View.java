@@ -51,6 +51,8 @@ public class View extends JFrame implements ActionListener {
 
 		//Create clear button
 		clear = new JButton("Clear");
+		clear.setActionCommand("clear");
+		clear.addActionListener(this);
 		main_panel.add(clear);
 		
 		add(main_panel);
@@ -59,11 +61,30 @@ public class View extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		int col = Integer.parseInt(e.getActionCommand());
-		int row = model.getEmptyCell(col);
-		Disc d = model.discAdd(row,col);
-		d.setPreferredSize(new Dimension(50, 50));
-		cells[row][col].add(d);
-		setContentPane(main_panel);
-	}
+		String button = e.getActionCommand();
+		if (button.equals("clear")) {
+//			cells = new Disc[rows][cols];
+			for (int row=0; row < rows; row++) {
+				for (int col=0; col < cols; col++) {
+					cells[row][col] = new Disc();
+					cells[row][col].setBorder(BorderFactory.createLineBorder(Color.black));
+					table.add(cells[row][col]);
+				}
+			}
+//			setContentPane(main_panel);
+			model.newGame();
+		}
+		else {
+			int col = Integer.parseInt(button);
+			if (model.colIsFull(col))
+				JOptionPane.showMessageDialog(null, "Column is full. Please choose other column", "Column is full", JOptionPane.WARNING_MESSAGE);
+			else {
+			int row = model.getEmptyCell(col);
+			Disc d = model.discAdd(row,col);
+			d.setPreferredSize(new Dimension(50, 50));
+			cells[row][col].add(d);
+			setContentPane(main_panel);
+			}
+		}
+	}	
 }

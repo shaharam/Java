@@ -13,11 +13,11 @@ public class Model {
     
     public void initMatrix() {
     	matrix = new int[rows][cols];
-    	for (int i = 0; i < rows; i++) {
-    		for (int j = 0; j < cols; j++) {
-                matrix[i][j] = 0;
-            }
-        }
+//    	for (int i = 0; i < rows; i++) {
+//    		for (int j = 0; j < cols; j++) {
+//                matrix[i][j] = 0;
+//            }
+//        }
     }
     
     public Disc discAdd(int row, int col) {
@@ -37,6 +37,14 @@ public class Model {
 				return i;
 			}
 		}
-		return 0; //Add check for fully column
+		return 0;
+	}
+
+	public boolean colIsFull(int col) {
+		return matrix[0][col] != 0;
+	}
+
+	public void newGame() {
+		initMatrix();
 	}
 }
