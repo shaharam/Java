@@ -63,15 +63,12 @@ public class View extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		if (button.equals("clear")) {
-//			cells = new Disc[rows][cols];
 			for (int row=0; row < rows; row++) {
 				for (int col=0; col < cols; col++) {
-					cells[row][col] = new Disc();
-					cells[row][col].setBorder(BorderFactory.createLineBorder(Color.black));
-					table.add(cells[row][col]);
+					cells[row][col].removeAll();
 				}
 			}
-//			setContentPane(main_panel);
+			repaint();
 			model.newGame();
 		}
 		else {

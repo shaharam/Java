@@ -7,8 +7,6 @@ import javax.swing.JPanel;
 
 public class Disc extends JPanel{
 	Color color;
-	//panel
-	//value 0 / 1
 	
 	public Disc() {
 		color = getBackground();
