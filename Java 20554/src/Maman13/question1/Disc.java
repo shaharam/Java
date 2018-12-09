@@ -17,7 +17,6 @@ public class Disc extends JPanel{
 			this.color = Color.RED;
 		else
 			this.color = Color.BLUE;
-//		repaint();
 	}
 	
 	@Override

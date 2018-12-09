@@ -1,10 +1,12 @@
 package Maman13.question1;
 
+import javax.swing.JOptionPane;
+
 public class Model {
 	private static final int cols = 7;
 	private static final int rows = 6;
     protected int[][] matrix;
-    private static int cells_left = cols * rows;
+    static int cells_left = cols * rows;
     private static int player=1;
 
     public Model() {
@@ -13,17 +15,14 @@ public class Model {
     
     public void initMatrix() {
     	matrix = new int[rows][cols];
-//    	for (int i = 0; i < rows; i++) {
-//    		for (int j = 0; j < cols; j++) {
-//                matrix[i][j] = 0;
-//            }
-//        }
+    	cells_left = cols * rows;
     }
     
     public Disc discAdd(int row, int col) {
     	matrix[row][col] = player;
     	Model.cells_left--;
     	Disc temp = new Disc(player);
+//    	checkWin(row, col);
     	if (player == 1)
     		player = 2;
     	else
@@ -46,5 +45,17 @@ public class Model {
 
 	public void newGame() {
 		initMatrix();
+	}
+
+	public void checkWin(int row, int col) {
+		int checkRow = 1;
+		for (int i=col-1; i>=0; i--)
+			while (matrix[row][i] == player)
+				checkRow++;
+		for (int i=col+1; i<=6; i++)
+			while (matrix[row][i] == player)
+				checkRow++;
+		if (checkRow >= 4)
+			System.out.println("WINNER");
 	}
 }

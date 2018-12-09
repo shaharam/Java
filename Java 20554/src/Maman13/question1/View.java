@@ -58,29 +58,45 @@ public class View extends JFrame implements ActionListener {
 		add(main_panel);
 		setVisible(true);
 	}
+	
+	private void resetGame() {
+		for (int row=0; row < rows; row++) {
+			for (int col=0; col < cols; col++) {
+				cells[row][col].removeAll();
+			}
+		}
+		repaint();
+		model.newGame();
+	}
+	
+	private void checkDraw() {
+		int res;
+		if (Model.cells_left == 0) {
+			res = JOptionPane.showConfirmDialog(null, "Game status: DRAW\nNew game?", "DRAW", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if (res == 0)
+				resetGame();
+			else
+				System.exit(0);
+		}
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
 		if (button.equals("clear")) {
-			for (int row=0; row < rows; row++) {
-				for (int col=0; col < cols; col++) {
-					cells[row][col].removeAll();
-				}
-			}
-			repaint();
-			model.newGame();
+			resetGame();
 		}
 		else {
 			int col = Integer.parseInt(button);
 			if (model.colIsFull(col))
 				JOptionPane.showMessageDialog(null, "Column is full. Please choose other column", "Column is full", JOptionPane.WARNING_MESSAGE);
 			else {
-			int row = model.getEmptyCell(col);
-			Disc d = model.discAdd(row,col);
-			d.setPreferredSize(new Dimension(50, 50));
-			cells[row][col].add(d);
-			setContentPane(main_panel);
+				int row = model.getEmptyCell(col);
+				Disc d = model.discAdd(row,col);
+				d.setPreferredSize(new Dimension(50, 50));
+				cells[row][col].add(d);
+				setContentPane(main_panel);
+				checkDraw();
 			}
 		}
 	}	
