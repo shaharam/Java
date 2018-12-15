@@ -15,15 +15,17 @@ public class View extends JFrame{
 	private JButton submit;
 	private JButton newGame;
 	private JButton quit;
+	private Model model;
 	
 	public View(String title, Model m) {
+		this.model = m;
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setBounds(500, 300, 800, 500);
 		main_panel = new JPanel();
 		main_panel.setLayout(new BorderLayout());
 		
-		question = new JLabel("How many kashios do you have?");
+		question = new JLabel(this.model.questions.get(0).getQuestion());
 		question.setPreferredSize(new Dimension(50, 100));
 		question.setFont(new Font("Serif", Font.PLAIN, 20));
 		main_panel.add(question, BorderLayout.PAGE_START);

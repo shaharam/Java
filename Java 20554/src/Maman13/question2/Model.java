@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Model {
-	private ArrayList<Question> questions;
+	protected ArrayList<Question> questions;
 	
 	public Model() {
 		try {
