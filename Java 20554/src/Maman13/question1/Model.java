@@ -1,7 +1,5 @@
 package Maman13.question1;
 
-import javax.swing.JOptionPane;
-
 public class Model {
 	private static final int cols = 7;
 	private static final int rows = 6;
@@ -22,11 +20,6 @@ public class Model {
     	matrix[row][col] = player;
     	Model.cells_left--;
     	Disc temp = new Disc(player);
-//    	checkWin(row, col);
-//    	if (player == 1)
-//    		player = 2;
-//    	else
-//    		player = 1;
     	return temp;
     }
 
@@ -53,7 +46,7 @@ public class Model {
 		return false;
 	}
 	
-	private boolean checkWinRow(int row, int col) {
+	private boolean checkWinRow(int row, int col) { //Check if last disc added won by a row
 		int checkRow = 1;
 		int i = col-1;
 		while (i>=0 && matrix[row][i] == player) {
@@ -70,7 +63,7 @@ public class Model {
 		return false;
 	}
 
-	private boolean checkWinCol(int row, int col) {
+	private boolean checkWinCol(int row, int col) {	//Check if last disc added won by a column
 		int checkCol = 1;
 		int i = row-1;
 		while (i>=0 && matrix[i][col] == player) {
@@ -87,7 +80,7 @@ public class Model {
 		return false;
 	}
 	
-	private boolean checkWinBackSlash(int row, int col) {
+	private boolean checkWinBackSlash(int row, int col) {	//Check if last disc added won by a back slash diagonal
 		int checkBackSlash = 1;
 		int i = row-1, j = col-1;
 		while (i>=0 && j>=0 && matrix[i][j] == player) {
@@ -106,7 +99,7 @@ public class Model {
 		return false;
 	}
 	
-	private boolean checkWinForwardSlash(int row, int col) {
+	private boolean checkWinForwardSlash(int row, int col) {	//Check if last disc added won by a forward slash diagonal
 		int checkForwardSlash = 1;
 		int i = row-1, j = col+1;
 		while (i>=0 && j<=6 && matrix[i][j] == player) {
