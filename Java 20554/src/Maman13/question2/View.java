@@ -1,10 +1,11 @@
 package Maman13.question2;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class View extends JFrame{
+public class View extends JFrame implements ActionListener{
 	private JFrame frame;
 	private JPanel main_panel;
 	private JLabel question;
@@ -15,6 +16,8 @@ public class View extends JFrame{
 	private JButton submit;
 	private JButton newGame;
 	private JButton quit;
+	//private TimerLabel timer;
+	private JLabel timer_lbl;
 	private Model model;
 	
 	public View(String title, Model m) {
@@ -25,10 +28,18 @@ public class View extends JFrame{
 		main_panel = new JPanel();
 		main_panel.setLayout(new BorderLayout());
 		
+		timer_lbl = new JLabel("10");
+		main_panel.add(timer_lbl, BorderLayout.PAGE_START);
+		Timer timer;
+		int counter = 0;
+		timer = new Timer(1000, new ActionListener() {
+			
+		})
+		
 		question = new JLabel(this.model.questions.get(0).getQuestion());
 		question.setPreferredSize(new Dimension(50, 100));
 		question.setFont(new Font("Serif", Font.PLAIN, 20));
-		main_panel.add(question, BorderLayout.PAGE_START);
+//		main_panel.add(question, BorderLayout.PAGE_START);
 		
 		JRadioButton answerOne = new JRadioButton("1");
 		JRadioButton answerTwo = new JRadioButton("2");
