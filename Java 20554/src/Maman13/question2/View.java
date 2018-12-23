@@ -1,14 +1,15 @@
 package Maman13.question2;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class View extends JFrame implements ActionListener{
+public class View extends JFrame {
 	private JFrame frame;
-	private JPanel main_panel;
-	private JLabel question;
+	protected JPanel main_panel;
+	protected JLabel question;
 	private ButtonGroup radioAnswers;
 	private JPanel panelAnswers;
 	private JPanel buttonsPanel;
@@ -16,8 +17,6 @@ public class View extends JFrame implements ActionListener{
 	private JButton submit;
 	private JButton newGame;
 	private JButton quit;
-	//private TimerLabel timer;
-	private JLabel timer_lbl;
 	private Model model;
 	
 	public View(String title, Model m) {
@@ -28,23 +27,15 @@ public class View extends JFrame implements ActionListener{
 		main_panel = new JPanel();
 		main_panel.setLayout(new BorderLayout());
 		
-		timer_lbl = new JLabel("10");
-		main_panel.add(timer_lbl, BorderLayout.PAGE_START);
-		Timer timer;
-		int counter = 0;
-		timer = new Timer(1000, new ActionListener() {
-			
-		})
-		
-		question = new JLabel(this.model.questions.get(0).getQuestion());
+		question = new JLabel();
 		question.setPreferredSize(new Dimension(50, 100));
 		question.setFont(new Font("Serif", Font.PLAIN, 20));
-//		main_panel.add(question, BorderLayout.PAGE_START);
+		main_panel.add(question, BorderLayout.PAGE_START);
 		
-		JRadioButton answerOne = new JRadioButton("1");
-		JRadioButton answerTwo = new JRadioButton("2");
-		JRadioButton answerThree = new JRadioButton("3");
-		JRadioButton answerFour = new JRadioButton("4");
+		JRadioButton answerOne = new JRadioButton();
+		JRadioButton answerTwo = new JRadioButton();
+		JRadioButton answerThree = new JRadioButton();
+		JRadioButton answerFour = new JRadioButton();
 		
 		radioAnswers = new ButtonGroup();
 		radioAnswers.add(answerOne);
