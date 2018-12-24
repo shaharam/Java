@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collections;
 
 import javax.swing.JLabel;
 import javax.swing.Timer;
@@ -27,6 +28,7 @@ public class Controller {
 		timer = new Timer(1000, new ActionListener() {
 			@Override
             public void actionPerformed(ActionEvent e) {
+				displayQuestion();
                 timer_lbl.setText(String.valueOf(counter));
                 counter--;
                 if (counter == -1) {
@@ -35,6 +37,21 @@ public class Controller {
             }
 		});
 		timer.restart();
+		
 	}
-
+	
+	private void displayQuestion() {
+		if (model.questions.size() > 0) {
+			Question q = model.getQuestion();
+			view.question.setText(q.getQuestionText());
+			for (int i=0; i<4; i++) {
+				view.answers[i].setText(q.getAnswers().get(i));
+				view.answers[i].setActionCommand(q.getAnswers().get(i));
+			}
+//			System.out.println(view.radioGroup.getSelection().getActionCommand()); //NEED TO REMOVE
+//			model.questions.remove(0);
+		}
+//		else
+//			scoreCalculate();
+	}
 }

@@ -3,6 +3,7 @@ package Maman13.question2;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Model {
@@ -19,6 +20,7 @@ public class Model {
 				}
 				this.questions.add(new Question(questionTemp));
 			}
+		Collections.shuffle(this.questions);
 		input.close();
 		}
 		
@@ -26,5 +28,9 @@ public class Model {
 			System.out.println("Unable to open file!");
 			e.printStackTrace();
 		}
+	}
+
+	public Question getQuestion() {
+		return this.questions.get(0);
 	}
 }

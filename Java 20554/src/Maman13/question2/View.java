@@ -10,7 +10,8 @@ public class View extends JFrame {
 	private JFrame frame;
 	protected JPanel main_panel;
 	protected JLabel question;
-	private ButtonGroup radioAnswers;
+	protected JRadioButton[] answers;
+	protected ButtonGroup radioGroup;
 	private JPanel panelAnswers;
 	private JPanel buttonsPanel;
 	private JPanel submitPanel;
@@ -32,27 +33,21 @@ public class View extends JFrame {
 		question.setFont(new Font("Serif", Font.PLAIN, 20));
 		main_panel.add(question, BorderLayout.PAGE_START);
 		
-		JRadioButton answerOne = new JRadioButton();
-		JRadioButton answerTwo = new JRadioButton();
-		JRadioButton answerThree = new JRadioButton();
-		JRadioButton answerFour = new JRadioButton();
-		
-		radioAnswers = new ButtonGroup();
-		radioAnswers.add(answerOne);
-		radioAnswers.add(answerTwo);
-		radioAnswers.add(answerThree);
-		radioAnswers.add(answerFour);
-		
 		panelAnswers = new JPanel();
 		panelAnswers.setLayout(new BoxLayout(panelAnswers, BoxLayout.Y_AXIS));
-		panelAnswers.add(answerOne);
-		panelAnswers.add(answerTwo);
-		panelAnswers.add(answerThree);
-		panelAnswers.add(answerFour);
 		panelAnswers.setPreferredSize(new Dimension(600, 100));
+		answers = new JRadioButton[4];
+		radioGroup = new ButtonGroup();
+		for (int i=0; i<answers.length; i++) {
+			answers[i] = new JRadioButton();
+			radioGroup.add(answers[i]);
+			panelAnswers.add(answers[i]);
+		}
+		answers[0].setSelected(true); //Check the first radio button by default in order to avoid clicking the submit button without selection
 		main_panel.add(panelAnswers, BorderLayout.LINE_START);
 		
 		submit = new JButton("SUBMIT");
+		submit.setActionCommand("submit");
 		submit.setPreferredSize(new Dimension(300, 100));
 		submitPanel = new JPanel();
 		submitPanel.add(submit);
@@ -74,5 +69,7 @@ public class View extends JFrame {
 		frame.add(main_panel);
 		frame.setVisible(true);
 	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package Maman13.question2;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Question {
 	private String question;
@@ -14,9 +15,10 @@ public class Question {
 		this.answers.add(this.rightAnswer);
 		for (int i=2; i<ans.length; i++)
 			this.answers.add(ans[i]);
+		Collections.shuffle(this.answers);
 	}
 
-	public String getQuestion() {
+	public String getQuestionText() {
 		return question;
 	}
 	
