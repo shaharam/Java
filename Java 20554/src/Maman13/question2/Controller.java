@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.Collections;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class Controller {
@@ -25,18 +26,23 @@ public class Controller {
 		timer_lbl.setFont(new Font("Serif", Font.PLAIN, 40));
 		
 		view.main_panel.add(timer_lbl, BorderLayout.LINE_END);
+		displayQuestion();
 		timer = new Timer(1000, new ActionListener() {
 			@Override
             public void actionPerformed(ActionEvent e) {
-				displayQuestion();
+				if (counter == -1) {
+					timer.stop();
+					JOptionPane.showMessageDialog(null, "Time is over!");
+					displayQuestion();
+					//TODO: Add -5 points to here?
+					counter = 15;
+					timer.restart();
+				}
                 timer_lbl.setText(String.valueOf(counter));
                 counter--;
-                if (counter == -1) {
-                      timer.stop();
-                }
             }
 		});
-		timer.restart();
+		timer.start();
 		
 	}
 	
@@ -49,7 +55,7 @@ public class Controller {
 				view.answers[i].setActionCommand(q.getAnswers().get(i));
 			}
 //			System.out.println(view.radioGroup.getSelection().getActionCommand()); //NEED TO REMOVE
-//			model.questions.remove(0);
+			model.questions.remove(0); //TODO question object is removed before checking if answer is correct 
 		}
 //		else
 //			scoreCalculate();
