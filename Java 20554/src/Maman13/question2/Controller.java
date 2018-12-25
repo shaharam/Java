@@ -1,6 +1,7 @@
 package Maman13.question2;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,12 +12,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-public class Controller {
+public class Controller implements ActionListener {
 	private Model model;
 	private View view;
 	private Timer timer;
 	private int counter = 14;
 	private JLabel timer_lbl;
+	private int score;
 
 	public Controller(Model m, View v) {
 		this.model = m;
@@ -24,7 +26,7 @@ public class Controller {
 		timer_lbl = new JLabel(Integer.toString(counter+1));
 		timer_lbl.setPreferredSize(new Dimension(100, 100));
 		timer_lbl.setFont(new Font("Serif", Font.PLAIN, 40));
-		
+		view.submit.addActionListener(this);
 		view.main_panel.add(timer_lbl, BorderLayout.LINE_END);
 		displayQuestion();
 		timer = new Timer(1000, new ActionListener() {
@@ -33,6 +35,7 @@ public class Controller {
 				if (counter == -1) {
 					timer.stop();
 					JOptionPane.showMessageDialog(null, "Time is over!");
+					removeQuestion();
 					displayQuestion();
 					//TODO: Add -5 points to here?
 					counter = 15;
@@ -54,10 +57,33 @@ public class Controller {
 				view.answers[i].setText(q.getAnswers().get(i));
 				view.answers[i].setActionCommand(q.getAnswers().get(i));
 			}
-//			System.out.println(view.radioGroup.getSelection().getActionCommand()); //NEED TO REMOVE
-			model.questions.remove(0); //TODO question object is removed before checking if answer is correct 
 		}
 //		else
-//			scoreCalculate();
+//			gameFinished();
 	}
+	
+	private void checkAnswer() {
+		if (view.radioGroup.getSelection().getActionCommand().equals(model.getQuestion().getRightAnswer()))
+			this.score+=10;
+		for (int i=0; i<3; i++) {
+			if (view.answers[i].getText().equals(model.getQuestion().getRightAnswer()))
+				for (int j=0; j<10; j++) {
+					view.answers[i].setForeground(Color.GREEN);
+					//sleep
+					view.answers[i].setForeground(Color.BLACK);					
+				}
+		}
+	}
+	
+	private void removeQuestion() {
+		model.questions.remove(0);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		String button = e.getActionCommand();
+		if (button == "submit")
+			checkAnswer();
+	}
+	
 }

@@ -15,7 +15,7 @@ public class View extends JFrame {
 	private JPanel panelAnswers;
 	private JPanel buttonsPanel;
 	private JPanel submitPanel;
-	private JButton submit;
+	protected JButton submit;
 	private JButton newGame;
 	private JButton quit;
 	private Model model;
@@ -70,6 +70,10 @@ public class View extends JFrame {
 		frame.setVisible(true);
 	}
 	
-	
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		String button = e.getActionCommand();
+//		System.out.println(button);
+//	}
 
 }
