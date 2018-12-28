@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Model {
+	protected static final int ANSWERS_PER_QUESTIONS = 4;
 	private Scanner input;
 	protected ArrayList<Question> questions;
 	
@@ -16,7 +17,7 @@ public class Model {
 	
 	public void startGame() {
 		try  {
-			input = new Scanner(new File("trivia.txt")); //trivia file should be on project folder
+			input = new Scanner(new File("trivia.txt")); //trivia file should be on project main folder
 			initQuestions();
 			input.close();
 		}
@@ -28,14 +29,14 @@ public class Model {
 	
 	public void initQuestions() {
 		this.questions = new ArrayList<Question>();
-		String[] questionTemp = new String[5];
+		String[] questionTemp = new String[ANSWERS_PER_QUESTIONS+1];
 		while (input.hasNext()) {
-			for (int i=0; i<5; i++) {
+			for (int i=0; i<ANSWERS_PER_QUESTIONS+1; i++) {
 				questionTemp[i] = input.nextLine();
 			}
 			this.questions.add(new Question(questionTemp));
 		}
-		Collections.shuffle(this.questions);
+		Collections.shuffle(this.questions); //shuffle the questions
 	}
 
 	public Question getQuestion() {

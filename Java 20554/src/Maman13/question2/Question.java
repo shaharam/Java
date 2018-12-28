@@ -9,13 +9,13 @@ public class Question {
 	private ArrayList<String> answers;
 	
 	public Question(String[] ans) {
-		this.question = ans[0];
-		this.rightAnswer = ans[1];
+		this.question = ans[0]; //first line
+		this.rightAnswer = ans[1];	//second line
 		this.answers = new ArrayList<String>();
-		this.answers.add(this.rightAnswer);
+		this.answers.add(this.rightAnswer); //adding the correct answer
 		for (int i=2; i<ans.length; i++)
 			this.answers.add(ans[i]);
-		Collections.shuffle(this.answers);
+		Collections.shuffle(this.answers); //shuffle answers
 	}
 
 	public String getQuestionText() {

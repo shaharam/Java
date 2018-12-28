@@ -14,7 +14,6 @@ public class Controller implements ActionListener {
 	private Model model;
 	private View view;
 	private Timer timer;
-	private final int ANSWERS_PER_QUESTIONS = 4;
 	private final int TIME_FOR_ANSWER = 15;
 	private final int CORRECT_ANSWER = 10;
 	private final int WRONG_ANSWER = 5;
@@ -59,11 +58,11 @@ public class Controller implements ActionListener {
 
 	private void displayQuestion() {
 		int input;
-		if (model.questions.size() > 0) {
-			Question q = model.getQuestion();
+		if (model.questions.size() > 0) { //check if question exists in the arraylist
+			Question q = model.getQuestion(); //get the question object
 			view.question.setText(q.getQuestionText());
-			view.answers[0].setSelected(true);	//Check the first radio button by default for better appearance
-			for (int i=0; i<ANSWERS_PER_QUESTIONS; i++) {
+			view.answers[0].setSelected(true);	//Check the first radio button by default for better appearance and to avoid 'submit' without a selection
+			for (int i=0; i<Model.ANSWERS_PER_QUESTIONS; i++) {
 				view.answers[i].setText(q.getAnswers().get(i));
 				view.answers[i].setActionCommand(q.getAnswers().get(i));
 			}
@@ -78,14 +77,14 @@ public class Controller implements ActionListener {
 	}
 	
 	private void newGame() {
-		this.score = 0;
+		this.score = 0; //reset score
 		model.startGame();
 		displayQuestion();
 		resetCounter();
 	}
 
 	private void checkAnswer() {
-		if (view.radioGroup.getSelection().getActionCommand().equals(model.getQuestion().getRightAnswer())) {
+		if (view.radioGroup.getSelection().getActionCommand().equals(model.getQuestion().getRightAnswer())) { //if answer is correct
 			JOptionPane.showMessageDialog(null, "Correct answer!", null, JOptionPane.INFORMATION_MESSAGE);
 			this.score+=CORRECT_ANSWER;
 		}
@@ -96,7 +95,7 @@ public class Controller implements ActionListener {
 		nextQuestion();
 	}
 	
-	private void removeQuestion() {
+	private void removeQuestion() { //removing question from arraylist
 		model.questions.remove(0);
 	}
 	
@@ -106,7 +105,7 @@ public class Controller implements ActionListener {
 		resetCounter();
 	}
 	
-	private void resetCounter() {
+	private void resetCounter() { //reset the counter every new question or new game
 		counter = TIME_FOR_ANSWER;
 		timer.restart();
 	}
@@ -120,7 +119,7 @@ public class Controller implements ActionListener {
 		}
 		else if (button == "new")
 			newGame();
-		else {
+		else { //quit button pressed
 			System.exit(0);
 		}
 	}

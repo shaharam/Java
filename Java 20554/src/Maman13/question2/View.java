@@ -23,57 +23,66 @@ public class View extends JFrame {
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setBounds(500, 300, 800, 500);
+		frame.setResizable(false);
 		main_panel = new JPanel();
 		main_panel.setLayout(new BorderLayout());
-		
-		question = new JLabel();
-		question.setPreferredSize(new Dimension(50, 100));
-		question.setFont(new Font("Serif", Font.PLAIN, 20));
-		main_panel.add(question, BorderLayout.PAGE_START);
-		
+		createQuestionLabel();
+		createAnswersPanel();
+		createButtonsPanel();
+		main_panel.add(buttonsPanel, BorderLayout.PAGE_END);
+		setContentPane(main_panel);
+		frame.add(main_panel);
+		frame.setVisible(true);
+	}
+
+	private void createButtonsPanel() {
+		buttonsPanel = new JPanel(new BorderLayout());
+		createSubmitButton();
+		createNewGameButton();
+		createQuitButton();
+		buttonsPanel.add(submitPanel, BorderLayout.PAGE_START);
+		buttonsPanel.add(newGame, BorderLayout.LINE_START);
+		buttonsPanel.add(quit, BorderLayout.LINE_END);
+	}
+
+	private void createQuitButton() {
+		quit = new JButton("Quit game");
+		quit.setActionCommand("quit");
+		quit.setPreferredSize(new Dimension(150, 30));
+	}
+
+	private void createNewGameButton() {
+		newGame = new JButton("Start New Game");
+		newGame.setActionCommand("new");
+		newGame.setPreferredSize(new Dimension(150, 30));
+	}
+
+	private void createSubmitButton() {
+		submitPanel = new JPanel();
+		submit = new JButton("SUBMIT");
+		submit.setActionCommand("submit");
+		submit.setPreferredSize(new Dimension(300, 100));
+		submitPanel.add(submit);
+	}
+
+	private void createAnswersPanel() {
 		panelAnswers = new JPanel();
 		panelAnswers.setLayout(new BoxLayout(panelAnswers, BoxLayout.Y_AXIS));
 		panelAnswers.setPreferredSize(new Dimension(600, 100));
-		answers = new JRadioButton[4];
+		answers = new JRadioButton[Model.ANSWERS_PER_QUESTIONS];
 		radioGroup = new ButtonGroup();
 		for (int i=0; i<answers.length; i++) {
 			answers[i] = new JRadioButton();
 			radioGroup.add(answers[i]);
 			panelAnswers.add(answers[i]);
 		}
-		answers[0].setSelected(true); //Check the first radio button by default in order to avoid clicking the submit button without a selection
 		main_panel.add(panelAnswers, BorderLayout.LINE_START);
-		
-		submit = new JButton("SUBMIT");
-		submit.setActionCommand("submit");
-		submit.setPreferredSize(new Dimension(300, 100));
-		submitPanel = new JPanel();
-		submitPanel.add(submit);
-
-		buttonsPanel = new JPanel(new BorderLayout());
-		buttonsPanel.add(submitPanel, BorderLayout.PAGE_START);
-		
-		newGame = new JButton("Start New Game");
-		newGame.setActionCommand("new");
-		newGame.setPreferredSize(new Dimension(150, 30));
-		buttonsPanel.add(newGame, BorderLayout.LINE_START);
-		
-		quit = new JButton("Quit game");
-		quit.setActionCommand("quit");
-		quit.setPreferredSize(new Dimension(150, 30));
-		buttonsPanel.add(quit, BorderLayout.LINE_END);
-		
-		main_panel.add(buttonsPanel, BorderLayout.PAGE_END);
-		
-		setContentPane(main_panel);
-		frame.add(main_panel);
-		frame.setVisible(true);
 	}
-	
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		String button = e.getActionCommand();
-//		System.out.println(button);
-//	}
 
+	private void createQuestionLabel() {
+		question = new JLabel();
+		question.setPreferredSize(new Dimension(50, 100));
+		question.setFont(new Font("Serif", Font.PLAIN, 20));
+		main_panel.add(question, BorderLayout.PAGE_START);
+	}
 }
