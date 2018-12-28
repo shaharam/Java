@@ -16,12 +16,10 @@ public class View extends JFrame {
 	private JPanel buttonsPanel;
 	private JPanel submitPanel;
 	protected JButton submit;
-	private JButton newGame;
-	private JButton quit;
-	private Model model;
+	protected JButton newGame;
+	protected JButton quit;
 	
-	public View(String title, Model m) {
-		this.model = m;
+	public View(String title) {
 		frame = new JFrame(title);
 		frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		frame.setBounds(500, 300, 800, 500);
@@ -43,7 +41,7 @@ public class View extends JFrame {
 			radioGroup.add(answers[i]);
 			panelAnswers.add(answers[i]);
 		}
-		answers[0].setSelected(true); //Check the first radio button by default in order to avoid clicking the submit button without selection
+		answers[0].setSelected(true); //Check the first radio button by default in order to avoid clicking the submit button without a selection
 		main_panel.add(panelAnswers, BorderLayout.LINE_START);
 		
 		submit = new JButton("SUBMIT");
@@ -56,10 +54,12 @@ public class View extends JFrame {
 		buttonsPanel.add(submitPanel, BorderLayout.PAGE_START);
 		
 		newGame = new JButton("Start New Game");
+		newGame.setActionCommand("new");
 		newGame.setPreferredSize(new Dimension(150, 30));
 		buttonsPanel.add(newGame, BorderLayout.LINE_START);
 		
 		quit = new JButton("Quit game");
+		quit.setActionCommand("quit");
 		quit.setPreferredSize(new Dimension(150, 30));
 		buttonsPanel.add(quit, BorderLayout.LINE_END);
 		

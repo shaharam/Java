@@ -1,12 +1,10 @@
 package Maman13.question2;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Collections;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -16,74 +14,114 @@ public class Controller implements ActionListener {
 	private Model model;
 	private View view;
 	private Timer timer;
-	private int counter = 14;
+	private final int ANSWERS_PER_QUESTIONS = 4;
+	private final int TIME_FOR_ANSWER = 15;
+	private final int CORRECT_ANSWER = 10;
+	private final int WRONG_ANSWER = 5;
+	private int counter = TIME_FOR_ANSWER-1;
 	private JLabel timer_lbl;
 	private int score;
 
 	public Controller(Model m, View v) {
 		this.model = m;
 		this.view = v;
-		timer_lbl = new JLabel(Integer.toString(counter+1));
-		timer_lbl.setPreferredSize(new Dimension(100, 100));
-		timer_lbl.setFont(new Font("Serif", Font.PLAIN, 40));
-		view.submit.addActionListener(this);
-		view.main_panel.add(timer_lbl, BorderLayout.LINE_END);
-		displayQuestion();
+		createTimerLabel();
+		addListeners();
+		displayQuestion(); //Display question for the first time
 		timer = new Timer(1000, new ActionListener() {
 			@Override
             public void actionPerformed(ActionEvent e) {
-				if (counter == -1) {
+				if (counter == -1) { //if time is over
 					timer.stop();
+					score-=WRONG_ANSWER;
 					JOptionPane.showMessageDialog(null, "Time is over!");
-					removeQuestion();
-					displayQuestion();
-					//TODO: Add -5 points to here?
-					counter = 15;
-					timer.restart();
+					nextQuestion();
 				}
                 timer_lbl.setText(String.valueOf(counter));
                 counter--;
             }
 		});
 		timer.start();
-		
 	}
 	
+	private void addListeners() {
+		view.submit.addActionListener(this);
+		view.newGame.addActionListener(this);
+		view.quit.addActionListener(this);
+	}
+
+	private void createTimerLabel() {
+		timer_lbl = new JLabel(Integer.toString(TIME_FOR_ANSWER));
+		timer_lbl.setPreferredSize(new Dimension(100, 100));
+		timer_lbl.setFont(new Font("Serif", Font.PLAIN, 40));
+		view.main_panel.add(timer_lbl, BorderLayout.LINE_END);
+	}
+
 	private void displayQuestion() {
+		int input;
 		if (model.questions.size() > 0) {
 			Question q = model.getQuestion();
 			view.question.setText(q.getQuestionText());
-			for (int i=0; i<4; i++) {
+			view.answers[0].setSelected(true);	//Check the first radio button by default for better appearance
+			for (int i=0; i<ANSWERS_PER_QUESTIONS; i++) {
 				view.answers[i].setText(q.getAnswers().get(i));
 				view.answers[i].setActionCommand(q.getAnswers().get(i));
 			}
 		}
-//		else
-//			gameFinished();
+		else {
+			input = JOptionPane.showConfirmDialog(null, "Game is over!\nYour score is: " + String.valueOf(this.score) + "\nNew game?", "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if (input == 0)
+				newGame();
+			else //No or X button
+				System.exit(0);
+		}
 	}
 	
+	private void newGame() {
+		this.score = 0;
+		model.startGame();
+		displayQuestion();
+		resetCounter();
+	}
+
 	private void checkAnswer() {
-		if (view.radioGroup.getSelection().getActionCommand().equals(model.getQuestion().getRightAnswer()))
-			this.score+=10;
-		for (int i=0; i<3; i++) {
-			if (view.answers[i].getText().equals(model.getQuestion().getRightAnswer()))
-				for (int j=0; j<10; j++) {
-					view.answers[i].setForeground(Color.GREEN);
-					//sleep
-					view.answers[i].setForeground(Color.BLACK);					
-				}
+		if (view.radioGroup.getSelection().getActionCommand().equals(model.getQuestion().getRightAnswer())) {
+			JOptionPane.showMessageDialog(null, "Correct answer!", null, JOptionPane.INFORMATION_MESSAGE);
+			this.score+=CORRECT_ANSWER;
 		}
+		else {
+			JOptionPane.showMessageDialog(null, "Wrong answer!", null, JOptionPane.WARNING_MESSAGE);
+			this.score-=WRONG_ANSWER;
+		}
+		nextQuestion();
 	}
 	
 	private void removeQuestion() {
 		model.questions.remove(0);
 	}
 	
+	private void nextQuestion() {
+		removeQuestion();
+		displayQuestion();
+		resetCounter();
+	}
+	
+	private void resetCounter() {
+		counter = TIME_FOR_ANSWER;
+		timer.restart();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String button = e.getActionCommand();
-		if (button == "submit")
+		if (button == "submit") {
+			timer.stop();
 			checkAnswer();
+		}
+		else if (button == "new")
+			newGame();
+		else {
+			System.exit(0);
+		}
 	}
-	
 }
