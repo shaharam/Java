@@ -2,11 +2,11 @@ package Maman15.question2;
 
 public class Airport {
 	private String airportName;
-	private int routesNumber;
+	private int[] routes;
 	
 	public Airport(String airportName, int routesNumber) {
 		this.airportName = airportName;
-		this.routesNumber = routesNumber;
+		this.routes = new int[routesNumber];
 	}
 	
 	public int depart(int flightNum) {
@@ -27,16 +27,8 @@ public class Airport {
 		return airportName;
 	}
 
-	public int getRoutes() {
-		return routesNumber;
-	}
-
-	public void setAirportName(String airportName) {
-		this.airportName = airportName;
-	}
-
-	public void setRoutes(int routes) {
-		this.routesNumber = routes;
+	public int[] getRoutes() {
+		return routes;
 	}
 }
 
