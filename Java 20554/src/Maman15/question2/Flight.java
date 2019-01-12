@@ -38,7 +38,7 @@ public class Flight extends Thread {
 		}
 	}
 	
-	//method for take off or land with random time between minFlightTime to maxFlightTime seconds
+	//method for flight with random time between minFlightTime to maxFlightTime seconds
 	private void flight() {
 		int duration = (int)(Math.random() * ((maxFlightTime - minFlightTime) + 1)) + minFlightTime;
 		System.out.println("Flight number " + flightNumber + " - " + "Flight duration: " + duration);

@@ -48,12 +48,18 @@ public class Airport {
 	}
 	
 	public int land(int flightNum) {
-		int freeRoute = 0; //TODO fix this func
-		return freeRoute;
+		lock.lock();
+		try {
+			return getFreeRoute(flightNum);
+		}
+		finally {
+			lock.unlock();
+		}
 	}
 	
 	public void freeRunway(int flightNum, int route) {
-		
+		this.routes[route] = 0;
+		this.freeRoute = true;
 	}
 
 	public String getAirportName() {
