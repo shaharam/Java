@@ -14,7 +14,7 @@ public class Main {
 		for (int i=0; i<NUMBER_OF_FLIGHTS; i++) {
 			Airport fromAirport = airports[new Random().nextInt(airports.length)]; //random on the flight direction
 			Airport toAirport = (fromAirport.getAirportName() == "TLV") ? airports[1]: airports[0];
-			Flight temp = new Flight(i, fromAirport, toAirport);
+			Flight temp = new Flight(i+1, fromAirport, toAirport);
 			System.out.println("Flight number " + i + " From " + fromAirport.getAirportName() + " To " + toAirport.getAirportName() + " is ready");
 			temp.start();
 		}
