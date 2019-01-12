@@ -18,22 +18,33 @@ public class Airport {
 	public int depart(int flightNum) {
 		lock.lock();
 		try {
-			return freeRoute(flightNum);
+			return getFreeRoute(flightNum);
 		}
 		finally {
 			lock.unlock();
 		}
 	}
 	
-	private int freeRoute(int flightNum) {
+	private int getFreeRoute(int flightNum) {
+		try {
+			while (!freeRoute) {
+				cond.await();
+			}
+		}
+		catch (InterruptedException e) {
+			System.out.println("Interrupted");
+			e.printStackTrace();
+			lock.unlock();
+		}
+		
 		for (int i=0; i<routes.length; i++) {
 			if (routes[i] == 0) { //0 = free route
 				routes[i] = flightNum;
+				this.freeRoute = (routes[0] != 0 && routes[1] != 0 && routes[2] != 0) ? false: true;
 				return i;
 			}
-		this.freeRoute = false;
-		
 		}
+		return -1;
 	}
 	
 	public int land(int flightNum) {

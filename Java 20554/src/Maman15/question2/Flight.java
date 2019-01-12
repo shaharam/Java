@@ -18,18 +18,18 @@ public class Flight extends Thread {
 	
 	public void run() {
 		int route = fromAirport.depart(flightNumber);
-		takeoffLand("Take off");
+		takeoffLand("From", fromAirport.getAirportName(), route, "Take off");
 		fromAirport.freeRunway(flightNumber, route);
 		flight();
 		route = toAirport.land(flightNumber);
-		takeoffLand("Land");
+		takeoffLand("To", toAirport.getAirportName(), route, "Land");
 		toAirport.freeRunway(flightNumber, route);
 	}
 	
 	//method for take off or land with random time between minTakeoffLandTime to maxTakeoffLandTime seconds
-	private void takeoffLand(String direction) {
+	private void takeoffLand(String direction, String airport, int route, String action) {
 		int duration = (int)(Math.random() * ((maxTakeoffLandTime - minTakeoffLandTime) + 1)) + minTakeoffLandTime;
-		System.out.println("Flight number " + flightNumber + " - " + direction + " duration: " + duration);
+		System.out.println("Flight number " + flightNumber + " - " + direction + " " + airport + " route: " + route + " - " + action + " duration: " + duration);
 		try {
 			Thread.sleep(duration * 1000);
 		} catch (InterruptedException e) {
@@ -54,24 +54,4 @@ public class Flight extends Thread {
 		return flightNumber;
 	}
 
-	public Airport getFromAirport() {
-		return fromAirport;
-	}
-
-	public Airport getToAirport() {
-		return toAirport;
-	}
-
-	public void setFlightNumber(int flightNumber) {
-		this.flightNumber = flightNumber;
-	}
-
-	public void setFromAirport(Airport fromAirport) {
-		this.fromAirport = fromAirport;
-	}
-
-	public void setToAirport(Airport toAirport) {
-		this.toAirport = toAirport;
-	}
-	
 }

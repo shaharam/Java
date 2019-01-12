@@ -11,13 +11,12 @@ public class Main {
 		airports[0] = new Airport("TLV", NUMBER_OF_ROUTES);
 		airports[1] = new Airport("JFK", NUMBER_OF_ROUTES);
 		
-		for (int i=0; i<NUMBER_OF_FLIGHTS; i++) {
+		for (int i=1; i<NUMBER_OF_FLIGHTS+1; i++) {
 			Airport fromAirport = airports[new Random().nextInt(airports.length)]; //random on the flight direction
 			Airport toAirport = (fromAirport.getAirportName() == "TLV") ? airports[1]: airports[0];
-			Flight temp = new Flight(i+1, fromAirport, toAirport);
-			System.out.println("Flight number " + i + " From " + fromAirport.getAirportName() + " To " + toAirport.getAirportName() + " is ready");
+			Flight temp = new Flight(i, fromAirport, toAirport);
+			System.out.println("Flight number " + i + " - From " + fromAirport.getAirportName() + " To " + toAirport.getAirportName() + " is ready");
 			temp.start();
 		}
 	}
-
 }
