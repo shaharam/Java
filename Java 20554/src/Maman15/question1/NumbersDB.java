@@ -1,65 +1,48 @@
 package Maman15.question1;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class NumbersDB {
 	private int numbersToCheck;
-	private static int concurrentThreads;
-	private static PrimeNum[] threads;
-	protected static ArrayList<Number> numbers = new ArrayList<Number>();
+	private int concurrentThreads;
+    private  boolean[] primeArray;
+    private  Controller controller;
 	
-	public NumbersDB() {
-		super();
-		try {
-			Scanner scan = new Scanner(System.in);
-			System.out.println("Enter the number you want to check up to which are prime numbers: ");
-			this.numbersToCheck = scan.nextInt();
-			System.out.println("Enter the number of concurrent threads: ");
-			NumbersDB.concurrentThreads = scan.nextInt();
-			for (int i=0; i<this.numbersToCheck+1; i++) {
-				numbers.add(new Number());
-			}
-			scan.close();
-			threads = new PrimeNum[concurrentThreads];
-			for (int i=0; i<concurrentThreads; i++) {
-				threads[i] = new PrimeNum("" + i);
-				threads[i].start();
-			}
-		}		
-		catch(InputMismatchException e) {
-			System.out.println("Wrong input, please run again using integers only");
-		}
+	public NumbersDB(String[] args) {
+		if (args.length != 2) {
+            System.err.println("Please enter exactly 2 arguments");
+            System.exit(1);
+        }
+         
+		numbersToCheck = Integer.parseInt(args[0]);
+		concurrentThreads = Integer.parseInt(args[1]);
+     
+        if(numbersToCheck < 1 || concurrentThreads < 1) {     
+        	System.err.println("Numbers to check or concurrent threads must be greater than 1");
+        	System.exit(1);
+        }
+        initArray();
+        
+        for(int i=2; i<=numbersToCheck; i++){      
+            controller.waitForOneThread();
+            new PrimeNum(i, primeArray, controller).start();
+        }
+        controller.waitForAllThreads();
+        printPrime();
 	}
 	
-	public static int getNumberForCheck() {
-		for (int i=0; i<numbers.size(); i++) {
-			if (numbers.get(i).isChecked())
-				continue;
-			else
-				numbers.get(i).setChecked(true);
-				return i;
-		}
-		return -1;
+	private void initArray() {
+		primeArray = new boolean[numbersToCheck + 1];
+		controller = new Controller(numbersToCheck, concurrentThreads);
+		
+		//fill the array with 'true' value except the first cell
+        for(int i=1; i<=numbersToCheck; i++)
+        	primeArray[i] = true;
 	}
-	
+
 	public void printPrime() {
-		boolean done = false;
-		while (!done) {
-			for (int i=0; i<threads.length; i++) {
-				if (!threads[i].isFinished())
-					break;
-				else
-					done = true;
-			}
-		}
-		System.out.println("[");
-		for (int i=0; i<numbers.size(); i++) {
-			if (numbers.get(i).isPrime())
-				System.out.println(numbers.get(i) + ", ");
-		}
-		System.out.println("]");
+		System.out.println("Prime Numbers till " + numbersToCheck + ":\n");
+        for(int i=1; i<=numbersToCheck; i++) {
+        	if(primeArray[i])
+        		System.out.print(" " + i);
+        }
 	}
 }
-
