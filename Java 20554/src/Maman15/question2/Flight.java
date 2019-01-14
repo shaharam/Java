@@ -49,9 +49,4 @@ public class Flight extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
-	public int getFlightNumber() {
-		return flightNumber;
-	}
-
 }
